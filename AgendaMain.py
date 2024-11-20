@@ -14,7 +14,8 @@ class AgendaMain(FuncoesAgenda,CoresAgenda):
         self.Labels_Dados()
         self.Entry_Dados()
         self.Botao_Dados()
-        self.Listar_Contatos()
+        self.Listar_Tab_Contatos()
+        self.Lista_Toda_Contato()
         root.mainloop()
      
      def tela(self):
@@ -52,7 +53,7 @@ class AgendaMain(FuncoesAgenda,CoresAgenda):
      def Botao_Dados(self):
         #bg=background,fg=cor de letra
         #busca
-        self.btn_buscar=Button(self.frames, text="Pesquisar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Mensagem_Personalizada)
+        self.btn_buscar=Button(self.frames, text="Pesquisar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Buscar_Entry_Contato)
         self.btn_buscar.place(relx=0.6,rely=0.2, relheight=0.2)
         #limpar
         self.btn_limpar=Button(self.root, text="limpar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Limpa_Campos)
@@ -65,13 +66,16 @@ class AgendaMain(FuncoesAgenda,CoresAgenda):
         self.btn_excluir=Button(self.root, text="excluir",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'))
         self.btn_excluir.place(relx=0.52,rely=0.33, relwidth=0.15,relheight=0.06)
         #atualizar
-        self.botao3=Button(self.root, text="atualizar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'))
-        self.botao3.place(relx=0.7,rely=0.33, relheight=0.06)
+        self.btn_atualiza=Button(self.root, text="atualizar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Mensagem_Personalizada)
+        self.btn_atualiza.place(relx=0.7,rely=0.33, relheight=0.06)
+        #recarrega lista
+        self.btn_recarrega=Button(self.root, text="Listar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Lista_Toda_Contato)
+        self.btn_recarrega.place(relx=0.34,rely=0.92,relwidth=0.15,relheight=0.06)
         
      def validar(self):
         self.vcm2=(self.root.register(self.valida),'%P')
         
-     def Listar_Contatos(self):
+     def Listar_Tab_Contatos(self):
         self.lista=ttk.Treeview(self.frames2,height=3,column=('co1','co2'))
         self.lista.heading("#0",text="")
         self.lista.heading("#1",text="Nome")
@@ -83,7 +87,7 @@ class AgendaMain(FuncoesAgenda,CoresAgenda):
         self.scrollB=Scrollbar(self.frames2,orient='vertical')
         self.lista.configure(yscroll=self.scrollB.set)
         self.scrollB.place(relx=0.95, rely=0.01, relwidth=0.04, relheight=0.97)
-        #self.lista.bind("<Double-1>", self.clique_duplo)
+        self.lista.bind("<Double-1>", self.Clique_Duplo)
 
 
 AgendaMain()
