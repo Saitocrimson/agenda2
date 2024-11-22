@@ -73,7 +73,23 @@ class ConexaoBancoAgenda:
         finally:
             self.Desconecta()
 
-        
+    def Atualiza_Contato(self,nomeantigo,nomenovo,telnovo):
+        try:
+             self.Conecta()
+             comando1="""UPDATE contatosAgenda SET numTel =  """'\''+telnovo+'\''+""" WHERE nomeAgenda = """+'\''+nomeantigo+'\''
+             print(comando1)
+             self.cursor.execute(comando1)
+             self.con.commit()
+             comando2="""UPDATE contatosAgenda SET nomeAgenda =  """'\''+nomenovo+'\''+""" WHERE numTel = """+'\''+telnovo+'\''
+             print(comando2)
+             self.cursor.execute(comando2)
+             self.con.commit()
+
+             print("Sucesso em atualizar ")
+        except mysql.connector.Error as erro:
+             print("falhou a atualização ", erro)
+        finally:
+             self.Desconecta()
     def Buscar_Contato(self,dado):
         try:   
             self.Conecta()
@@ -85,5 +101,18 @@ class ConexaoBancoAgenda:
             return retorna
         except mysql.connector.Error as erro:
             print("falhou  o comando buscar ", erro)
+        finally:
+            self.Desconecta()
+    def Deleta_Contato(self,nome):
+        try:
+            self.Conecta()
+            comando2="""DELETE  FROM contatosAgenda WHERE nomeAgenda= %s"""
+            dado1=(nome,)
+            self.cursor.execute(comando2,dado1)
+            self.con.commit()
+            print("Deletado com sucesso ")
+            
+        except mysql.connector.Error as erro:
+            print("falhou o comando deletar  ", erro)
         finally:
             self.Desconecta()

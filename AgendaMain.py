@@ -1,11 +1,12 @@
 from ModulosAgenda import *
 from funcoes.FuncoesAgenda import FuncoesAgenda
+from funcoes.Pdf_contato import PDF_Contato
 from cores.Cores import CoresAgenda
 
 root=tix.Tk()
 
 
-class AgendaMain(FuncoesAgenda,CoresAgenda):
+class AgendaMain(FuncoesAgenda,CoresAgenda,PDF_Contato):
      def __init__(self):
         self.root=root
         self.tela()
@@ -16,6 +17,7 @@ class AgendaMain(FuncoesAgenda,CoresAgenda):
         self.Botao_Dados()
         self.Listar_Tab_Contatos()
         self.Lista_Toda_Contato()
+        self.nom=''
         root.mainloop()
      
      def tela(self):
@@ -61,16 +63,19 @@ class AgendaMain(FuncoesAgenda,CoresAgenda):
         #inserir
         self.btn_inserir=Button(self.root, text="inserir",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Inserir_Contato)
         self.btn_inserir.place(relx=0.34,rely=0.33,relwidth=0.15,relheight=0.06 )
-
-        #excluir
-        self.btn_excluir=Button(self.root, text="excluir",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'))
-        self.btn_excluir.place(relx=0.52,rely=0.33, relwidth=0.15,relheight=0.06)
         #atualizar
-        self.btn_atualiza=Button(self.root, text="atualizar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Mensagem_Personalizada)
-        self.btn_atualiza.place(relx=0.7,rely=0.33, relheight=0.06)
+        self.btn_atualiza=Button(self.root, text="atualizar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Atualizar_Contato_Lista)
+        self.btn_atualiza.place(relx=0.52,rely=0.33, relheight=0.06)
+        #excluir
+        self.btn_excluir=Button(self.root, text="excluir",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Deletar_Contato_Lista)
+        self.btn_excluir.place(relx=0.7,rely=0.33, relwidth=0.15,relheight=0.06)
+      
         #recarrega lista
         self.btn_recarrega=Button(self.root, text="Listar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Lista_Toda_Contato)
         self.btn_recarrega.place(relx=0.34,rely=0.92,relwidth=0.15,relheight=0.06)
+        #lista pdf
+        self.btn_pdf=Button(self.root, text="Pdf",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Mensagem_Personalizada)
+        self.btn_pdf.place(relx=0.5,rely=0.92,relwidth=0.15,relheight=0.06)
         
      def validar(self):
         self.vcm2=(self.root.register(self.valida),'%P')

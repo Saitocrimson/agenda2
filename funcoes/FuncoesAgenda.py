@@ -3,6 +3,7 @@ from funcoes.BancoAgenda import ConexaoBancoAgenda
 
 
 class FuncoesAgenda:
+     
      def Mensagem_Personalizada(self):
         messagebox.showinfo("Hello\n ",self.nome_espaco.get())
 
@@ -58,6 +59,21 @@ class FuncoesAgenda:
         for i in lista_tree:
             self.lista.insert("",END,values=i)
 
+    
+     def Atualizar_Contato_Lista(self):
+        banco=ConexaoBancoAgenda()
+        if self.nome_espaco.get()=='' or self.tel_espaco.get()=='':
+               messagebox.showinfo("Alerta\n ","insera os dados do contato ")
+        else:
+            if self.nom!='':
+                 banco.Atualiza_Contato(
+                     self.nom,
+                     self.nome_espaco.get(),
+                     self.tel_espaco.get()
+                     )
+                 self.Lista_Toda_Contato()
+                 self.Limpa_Campos()
+                 self.nom=""
 
      def Buscar_Entry_Contato(self):
         
@@ -73,7 +89,19 @@ class FuncoesAgenda:
             self.Limpa_Campos()
         else:
             messagebox.showinfo("Alerta\n ","Campo nome vazio ")
+    
+     def Deletar_Contato_Lista(self):
+        banco=ConexaoBancoAgenda()
+        if self.nome_espaco.get()=='' or self.tel_espaco.get()=='' and self.nom=='':
+            messagebox.showinfo("Alerta\n ","insera os dados do contato ")
+        else:
+            banco.Deleta_Contato(self.nome_espaco.get())
+            messagebox.showinfo("Excluir\n ","excluido o "+self.nome_espaco.get()+" com suecesso")
+            self.Lista_Toda_Contato()
+            self.Limpa_Campos()
+            self.nom=""
 
+            
      def Clique_Duplo(self, event):
         self.Limpa_Campos()
         self.lista.selection()
@@ -81,4 +109,6 @@ class FuncoesAgenda:
             col1,col2=self.lista.item(n,'values')
             self.nome_espaco.insert(END, col1)
             self.tel_espaco.insert(END, col2)
+            self.nom=self.nome_espaco.get()
             
+     
