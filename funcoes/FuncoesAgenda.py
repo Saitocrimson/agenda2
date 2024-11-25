@@ -1,14 +1,23 @@
-from ModulosAgenda import *
 from funcoes.BancoAgenda import ConexaoBancoAgenda
+from funcoes.PDF_Lista.Pdf_contato import PDF_Contato
+from ModulosAgenda import *
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.platypus import SimpleDocTemplate, Image
+import webbrowser
 
-
-class FuncoesAgenda:
+class FuncoesAgenda(PDF_Contato):
      
      def Mensagem_Personalizada(self):
         messagebox.showinfo("Hello\n ",self.nome_espaco.get())
-
-
-
+        
+     def PDF_lista(self):
+          banco=ConexaoBancoAgenda()
+          nome_tel_lista=banco.Lista_Toda()
+          #self.teste_da_lista(nome_tel_lista)
+          self.Gerar_Pdf(nome_tel_lista)
+          
      def ver_contato(self):
         banco=ConexaoBancoAgenda()
         verificar=banco.Buscar_Contato(self.nome_espaco.get())
@@ -34,7 +43,7 @@ class FuncoesAgenda:
          self.nome_espaco.delete(0,END)
          self.tel_espaco.delete(0,END)
          
-         
+     #valida se o texto passado e um numero   
      def valida_num(self,textonum):
         if int(textonum)>=0:
             return True

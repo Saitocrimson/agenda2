@@ -1,12 +1,12 @@
 from ModulosAgenda import *
 from funcoes.FuncoesAgenda import FuncoesAgenda
-from funcoes.Pdf_contato import PDF_Contato
+
 from cores.Cores import CoresAgenda
 
 root=tix.Tk()
 
 
-class AgendaMain(FuncoesAgenda,CoresAgenda,PDF_Contato):
+class AgendaMain(FuncoesAgenda,CoresAgenda):
      def __init__(self):
         self.root=root
         self.tela()
@@ -74,7 +74,7 @@ class AgendaMain(FuncoesAgenda,CoresAgenda,PDF_Contato):
         self.btn_recarrega=Button(self.root, text="Listar",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Lista_Toda_Contato)
         self.btn_recarrega.place(relx=0.34,rely=0.92,relwidth=0.15,relheight=0.06)
         #lista pdf
-        self.btn_pdf=Button(self.root, text="Pdf",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.Mensagem_Personalizada)
+        self.btn_pdf=Button(self.root, text="Pdf",bd=4,bg=self.laranja_botao_fora(),fg="black",font=('verdana',8,'bold'),command=self.PDF_lista)
         self.btn_pdf.place(relx=0.5,rely=0.92,relwidth=0.15,relheight=0.06)
         
      def validar(self):
