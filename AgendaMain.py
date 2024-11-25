@@ -1,6 +1,5 @@
 from ModulosAgenda import *
 from funcoes.FuncoesAgenda import FuncoesAgenda
-
 from cores.Cores import CoresAgenda
 
 root=tix.Tk()

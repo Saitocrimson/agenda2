@@ -1,0 +1,6 @@
+CREATE DATABASE ContatosBanco;
+use ContatosBanco;
+create table contatosAgenda(
+nomeAgenda VARCHAR(150) NOT NULL,
+numTel  VARCHAR(15)  not null
+);
